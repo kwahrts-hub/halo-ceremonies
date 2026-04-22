@@ -3,27 +3,99 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="A short description of your site" />
-    <title>Your Site Name</title>
-    <link rel="stylesheet" href="style.css" />
+
+    <!-- SEO: describe your site for Google -->
+    <meta
+      name="description"
+      content="Halo Ceremonies — beautiful, personalised wedding and life ceremonies in [your city]."
+    />
+
+    <!-- Open Graph: controls how your link looks when shared on social media -->
+    <meta property="og:title" content="Halo Ceremonies" />
+    <meta
+      property="og:description"
+      content="Beautiful, personalised ceremonies for your most important moments."
+    />
+    <meta property="og:image" content="/assets/images/og-image.jpg" />
+    <meta property="og:type" content="website" />
+
+    <title>Halo Ceremonies — Personalised Wedding &amp; Life Ceremonies</title>
+    <link rel="stylesheet" href="/style.css" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/images/favicon.ico" />
   </head>
   <body>
-    <header>
-      <nav>
-        <a href="/">Home</a>
-        <a href="/about/">About</a>
-      </nav>
-    </header>
+    <!-- ① HEADER: appears on every page -->
+    <div id="header"></div>
 
     <main>
-      <h1>Halo ceremonies</h1>
-      <p>Coming soon.</p>
+      <!-- ② HERO: the first thing visitors see -->
+      <section class="hero">
+        <h1>Ceremonies that feel like you</h1>
+        <p>
+          Personalised weddings, naming days, and life celebrations crafted with
+          care.
+        </p>
+        <a href="/contact/" class="btn">Get in touch</a>
+      </section>
+
+      <!-- ③ INTRO: a brief "what we do" -->
+      <section class="intro">
+        <h2>What we do</h2>
+        <p>
+          We work with couples and families to create ceremonies that truly
+          reflect who they are — no scripts, no formulas, just meaningful
+          moments.
+        </p>
+      </section>
+
+      <!-- ④ SERVICES PREVIEW: 3 cards linking to /services/ -->
+      <section class="services-preview">
+        <h2>Our ceremonies</h2>
+        <div class="card-grid">
+          <div class="card">
+            <h3>Weddings</h3>
+            <p>From intimate elopements to large celebrations.</p>
+            <a href="/services/">Learn more</a>
+          </div>
+          <div class="card">
+            <h3>Naming days</h3>
+            <p>A beautiful welcome for your new arrival.</p>
+            <a href="/services/">Learn more</a>
+          </div>
+          <div class="card">
+            <h3>Vow renewals</h3>
+            <p>Celebrate your journey and recommit your love.</p>
+            <a href="/services/">Learn more</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ⑤ TESTIMONIAL: social proof -->
+      <section class="testimonial">
+        <blockquote>
+          <p>
+            "It was the most personal, moving ceremony we could have imagined."
+          </p>
+          <cite>— Sarah &amp; Tom, married June 2024</cite>
+        </blockquote>
+      </section>
+
+      <!-- ⑥ CALL TO ACTION: one clear next step -->
+      <section class="cta">
+        <h2>Ready to start planning?</h2>
+        <p>Get in touch and let's talk about your ceremony.</p>
+        <a href="/contact/" class="btn">Contact us</a>
+      </section>
     </main>
 
-    <footer>
-      <p>&copy; 2026 Your Name</p>
-    </footer>
+    <!-- ⑦ FOOTER: appears on every page -->
+    <!-- Footer gets injected here -->
+    <div id="footer"></div>
 
-    <script src="script.js" defer></script>
+    <!-- Load components first, then your own script -->
+    <script src="/components.js"></script>
+    <script src="/script.js" defer></script>
   </body>
 </html>
