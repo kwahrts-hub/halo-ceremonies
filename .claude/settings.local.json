@@ -3,7 +3,11 @@
     "allow": [
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(git status *)",
+      "Bash(git -C /Users/hr/Documents/projects rev-parse --git-dir)",
+      "Bash(git -C /Users/hr status --short)",
+      "Bash(git -C /Users/hr log --oneline)"
     ]
   }
 }
