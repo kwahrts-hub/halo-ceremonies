@@ -31,17 +31,69 @@
 
     <main>
       <!-- ② HERO: the first thing visitors see -->
-      <section class="hero">
-        <h1>Ceremonies that feel like you</h1>
-        <p>
-          Personalised weddings, naming days, and life celebrations crafted with
-          care.
-        </p>
-        <a href="/contact/" class="btn">Get in touch</a>
+      <section id="top" class="hero" aria-label="Hero" tabindex="-1">
+
+        <!-- Background layers: wedding (bottom) and memorial (top) -->
+        <div class="hero__layer hero__layer--wedding" aria-hidden="true">
+          <!-- Gold interlocking rings motif -->
+          <svg
+            class="hero__motif hero__motif--rings"
+            viewBox="0 0 180 120"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <circle cx="70"  cy="60" r="48" fill="none" stroke="#C9A96E" stroke-width="2" />
+            <circle cx="110" cy="60" r="48" fill="none" stroke="#C9A96E" stroke-width="2" />
+          </svg>
+        </div>
+
+        <div class="hero__layer hero__layer--memorial" aria-hidden="true">
+          <!-- Sage leaf motif -->
+          <svg
+            class="hero__motif hero__motif--leaf"
+            viewBox="0 0 80 120"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <!-- Leaf outline: elongated oval rotated ~30deg -->
+            <ellipse
+              cx="40" cy="60"
+              rx="18" ry="50"
+              transform="rotate(30 40 60)"
+              fill="none"
+              stroke="#8A9E85"
+              stroke-width="1.5"
+            />
+            <!-- Centre vein from base to tip -->
+            <line
+              x1="40" y1="10"
+              x2="40" y2="110"
+              stroke="#8A9E85"
+              stroke-width="1"
+            />
+          </svg>
+        </div>
+
+        <!-- Content sits above both layers -->
+        <div class="hero__content container">
+          <!-- Wedding state text (default visible) -->
+          <div class="hero__text hero__text--wedding">
+            <h1>Ceremonies that honour life's most<br>meaningful moments</h1>
+            <a href="/contact/" class="btn">Get in touch</a>
+          </div>
+          <!-- Memorial state text (hidden from screen readers: content is identical) -->
+          <div class="hero__text hero__text--memorial" aria-hidden="true">
+            <h1>Ceremonies that honour life's most<br>meaningful moments</h1>
+            <a href="/contact/" class="btn hero__btn--light">Get in touch</a>
+          </div>
+        </div>
+
       </section>
 
       <!-- ③ INTRO: a brief "what we do" -->
-      <section class="intro">
+      <section id="about" class="intro" tabindex="-1">
         <h2>What we do</h2>
         <p>
           We work with couples and families to create ceremonies that truly
@@ -50,43 +102,173 @@
         </p>
       </section>
 
-      <!-- ④ SERVICES PREVIEW: 3 cards linking to /services/ -->
-      <section class="services-preview">
-        <h2>Our ceremonies</h2>
-        <div class="card-grid">
-          <div class="card">
-            <h3>Weddings</h3>
-            <p>From intimate elopements to large celebrations.</p>
-            <a href="/services/">Learn more</a>
-          </div>
-          <div class="card">
-            <h3>Naming days</h3>
-            <p>A beautiful welcome for your new arrival.</p>
-            <a href="/services/">Learn more</a>
-          </div>
-          <div class="card">
-            <h3>Vow renewals</h3>
-            <p>Celebrate your journey and recommit your love.</p>
-            <a href="/services/">Learn more</a>
+      <!-- ④ SERVICES: three cards in CSS Grid -->
+      <section id="services" class="services" aria-labelledby="services-heading" tabindex="-1">
+        <div class="container">
+          <h2 id="services-heading">Our ceremonies</h2>
+          <ul class="services__grid" role="list">
+
+            <li class="services__card services__card--weddings">
+              <div class="services__card-body">
+                <h3 class="services__card-title">Weddings</h3>
+                <p class="services__card-desc">A ceremony as unique as your love story</p>
+                <a href="/services/weddings/" class="services__link"
+                   aria-label="Learn more about wedding ceremonies">Learn more</a>
+              </div>
+            </li>
+
+            <li class="services__card services__card--milestones">
+              <div class="services__card-body">
+                <h3 class="services__card-title">Milestone celebrations</h3>
+                <p class="services__card-desc">Naming days, anniversaries, vow renewals</p>
+                <a href="/services/milestones/" class="services__link"
+                   aria-label="Learn more about milestone celebrations">Learn more</a>
+              </div>
+            </li>
+
+            <li class="services__card services__card--memorials">
+              <div class="services__card-body">
+                <h3 class="services__card-title">Funerals &amp; memorials</h3>
+                <p class="services__card-desc">A farewell filled with meaning and dignity</p>
+                <a href="/services/memorials/" class="services__link"
+                   aria-label="Learn more about funeral and memorial ceremonies">Learn more</a>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </section>
+
+      <!-- ⑤ TESTIMONIALS: two quotes side by side on desktop -->
+      <section id="gallery" class="testimonials" aria-labelledby="testimonials-heading" tabindex="-1">
+        <div class="container">
+          <h2 id="testimonials-heading" class="testimonials__heading">Kind words</h2>
+          <div class="testimonials__grid">
+
+            <figure class="testimonials__quote">
+              <blockquote>
+                <p>"It was the most personal, moving ceremony we could have imagined. Every word felt like it was written just for us."</p>
+              </blockquote>
+              <figcaption>
+                <cite class="testimonials__cite">Sarah &amp; Tom</cite>
+                <span class="testimonials__context">Wedding, June 2024</span>
+              </figcaption>
+            </figure>
+
+            <figure class="testimonials__quote">
+              <blockquote>
+                <p>"In the hardest moment of our lives, she gave Dad the farewell he deserved. We will be forever grateful."</p>
+              </blockquote>
+              <figcaption>
+                <cite class="testimonials__cite">The Mitchell family</cite>
+                <span class="testimonials__context">Memorial service, March 2024</span>
+              </figcaption>
+            </figure>
+
           </div>
         </div>
       </section>
 
-      <!-- ⑤ TESTIMONIAL: social proof -->
-      <section class="testimonial">
-        <blockquote>
-          <p>
-            "It was the most personal, moving ceremony we could have imagined."
-          </p>
-          <cite>— Sarah &amp; Tom, married June 2024</cite>
-        </blockquote>
-      </section>
+      <!-- ⑥ CONTACT: enquiry form -->
+      <section id="contact" class="contact" aria-labelledby="contact-heading" tabindex="-1">
+        <div class="container contact__inner">
 
-      <!-- ⑥ CALL TO ACTION: one clear next step -->
-      <section class="cta">
-        <h2>Ready to start planning?</h2>
-        <p>Get in touch and let's talk about your ceremony.</p>
-        <a href="/contact/" class="btn">Contact us</a>
+          <div class="contact__intro">
+            <h2 id="contact-heading">Get in touch</h2>
+            <p>Every ceremony begins with a conversation. Tell us a little about your occasion and we'll be in touch within two working days.</p>
+          </div>
+
+          <form class="contact__form" action="/contact/thank-you/" method="post" novalidate>
+
+            <!-- Full name -->
+            <div class="form__field">
+              <label class="form__label" for="name">Full name</label>
+              <input
+                class="form__input"
+                type="text"
+                id="name"
+                name="name"
+                autocomplete="name"
+                required
+                aria-required="true"
+                aria-describedby="name-hint"
+              />
+              <span class="form__hint" id="name-hint">As you'd like us to address you</span>
+            </div>
+
+            <!-- Email address -->
+            <div class="form__field">
+              <label class="form__label" for="email">Email address</label>
+              <input
+                class="form__input"
+                type="email"
+                id="email"
+                name="email"
+                autocomplete="email"
+                required
+                aria-required="true"
+                aria-describedby="email-hint"
+              />
+              <span class="form__hint" id="email-hint">We'll only use this to respond to your enquiry</span>
+            </div>
+
+            <!-- Type of ceremony -->
+            <div class="form__field">
+              <label class="form__label" for="ceremony-type">Type of ceremony</label>
+              <select
+                class="form__input form__select"
+                id="ceremony-type"
+                name="ceremony-type"
+                required
+                aria-required="true"
+                aria-describedby="ceremony-type-hint"
+              >
+                <option value="">Please select…</option>
+                <option value="wedding">Wedding</option>
+                <option value="naming-day">Naming day</option>
+                <option value="anniversary">Anniversary</option>
+                <option value="vow-renewal">Vow renewal</option>
+                <option value="funeral-memorial">Funeral / memorial</option>
+                <option value="other">Other</option>
+              </select>
+              <span class="form__hint" id="ceremony-type-hint">Choose the option that best describes your occasion</span>
+            </div>
+
+            <!-- Preferred date -->
+            <div class="form__field">
+              <label class="form__label" for="preferred-date">Preferred date <span class="form__optional">(optional)</span></label>
+              <input
+                class="form__input"
+                type="date"
+                id="preferred-date"
+                name="preferred-date"
+                aria-describedby="preferred-date-hint"
+              />
+              <span class="form__hint" id="preferred-date-hint">If you have a date in mind — don't worry if not</span>
+            </div>
+
+            <!-- Message -->
+            <div class="form__field">
+              <label class="form__label" for="message">Message</label>
+              <textarea
+                class="form__input form__textarea"
+                id="message"
+                name="message"
+                rows="5"
+                required
+                aria-required="true"
+                aria-describedby="message-hint"
+              ></textarea>
+              <span class="form__hint" id="message-hint">Tell us about your ceremony — the more detail the better</span>
+            </div>
+
+            <!-- Submit -->
+            <div class="form__field form__field--submit">
+              <button type="submit" class="btn">Send your enquiry</button>
+            </div>
+
+          </form>
+        </div>
       </section>
     </main>
 

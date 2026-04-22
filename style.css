@@ -1,4 +1,823 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500&display=swap');
+
+/* Custom Properties */
+
+:root {
+  --color-charcoal: #2C2B29;
+  --color-ivory: #F5F0E8;
+  --color-dusty-rose: #B8A49A;
+  --color-sage: #8A9E85;
+  --color-gold: #C9A96E;
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Jost', system-ui, sans-serif;
+}
+
+/* Reset */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-ivory);
+  color: var(--color-charcoal);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Typography */
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  font-weight: 300;
+  line-height: 1.2;
+  margin-top: 0;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+/* Layout */
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Header */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--color-ivory);
+  border-bottom: 1px solid rgba(184, 164, 154, 0.3);
+  padding: 1rem 0;
+}
+
+.site-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* Navigation */
+
+.main-nav ul {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav a {
+  color: var(--color-charcoal);
+  text-decoration: none;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.main-nav a:hover {
+  color: var(--color-gold);
+}
+
 .main-nav a.active {
   font-weight: bold;
   text-decoration: underline;
+}
+
+/* Button */
+
+.btn {
+  display: inline-block;
+  background-color: var(--color-gold);
+  color: var(--color-charcoal);
+  padding: 0.75rem 2rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn:hover {
+  filter: brightness(0.92);
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Footer */
+
+.site-footer {
+  background-color: var(--color-charcoal);
+  color: var(--color-ivory);
+  padding: 2.5rem 0;
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+.site-footer a {
+  color: var(--color-dusty-rose);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.site-footer a:hover {
+  color: var(--color-ivory);
+}
+
+/* Accessibility — focus styles */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+/* Responsive — ≥768px */
+
+@media (min-width: 768px) {
+  h1 { font-size: 4rem; }
+  h2 { font-size: 3rem; }
+  h3 { font-size: 2rem; }
+  h4 { font-size: 1.5rem; }
+
+  .container {
+    padding: 0 2rem;
+  }
+}
+
+/* Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none;
+    animation: none;
+  }
+
+  .btn:hover {
+    transform: none;
+  }
+
+  .btn:active {
+    transform: none;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Hero
+   Two-state crossfade: wedding (ivory) ↔ memorial (charcoal).
+   The memorial layer sits on top and fades in/out via CSS
+   keyframes. When reduced-motion is preferred the animation
+   block is skipped entirely, leaving only the wedding state
+   visible.
+───────────────────────────────────────────────────────────── */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;       /* fallback for browsers without svh support */
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+}
+
+/* Shared layer rules */
+.hero__layer {
+  position: absolute;
+  inset: 0;
+}
+
+/* Wedding layer — ivory background, sits beneath memorial layer */
+.hero__layer--wedding {
+  background-color: var(--color-ivory);
+  z-index: 0;
+}
+
+/* Memorial layer — charcoal background, sits on top */
+.hero__layer--memorial {
+  background-color: var(--color-charcoal);
+  z-index: 1;
+  /* Static fallback (reduced-motion): memorial layer is hidden */
+  opacity: 0;
+}
+
+/* SVG motifs — decorative, positioned in bottom-right corner */
+.hero__motif {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.hero__motif--rings {
+  width: 9rem;
+  height: auto;
+}
+
+.hero__motif--leaf {
+  width: 4rem;
+  height: auto;
+}
+
+/* Content block — above both layers */
+.hero__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+  width: 100%;
+}
+
+/* Text overlays — stacked on top of each other */
+.hero__text {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  padding: 0 1.5rem;
+  transition: opacity 0.4s ease;
+}
+
+/* Wedding text — charcoal on ivory. Visible by default */
+.hero__text--wedding {
+  opacity: 1;
+}
+
+.hero__text--wedding h1 {
+  color: var(--color-charcoal);
+}
+
+/* Memorial text — ivory on charcoal. Hidden by default */
+.hero__text--memorial {
+  opacity: 0;
+}
+
+.hero__text--memorial h1 {
+  color: var(--color-ivory);
+}
+
+/*
+  Light button variant — used over the charcoal/memorial layer.
+  Ivory border + text on transparent bg; inverts on hover.
+  Contrast: #F5F0E8 on #2C2B29 ≈ 14:1 — well above WCAG AA 4.5:1.
+*/
+.hero__btn--light {
+  background-color: transparent;
+  color: var(--color-ivory);
+  border: 2px solid var(--color-ivory);
+}
+
+.hero__btn--light:hover {
+  background-color: var(--color-ivory);
+  color: var(--color-charcoal);
+  filter: none;
+}
+
+/* ── Responsive refinements ────────────────────────────────── */
+
+@media (min-width: 768px) {
+  .hero__motif--rings {
+    width: 11.25rem;
+  }
+
+  .hero__motif--leaf {
+    width: 5rem;
+  }
+}
+
+/* ── Animation (only for users who haven't requested reduced motion) ── */
+
+@media (prefers-reduced-motion: no-preference) {
+
+  /*
+    hero-fade: memorial layer and memorial text
+    0–45%   → fully opaque   (memorial state visible for ~5.4s)
+    50–95%  → fully hidden   (wedding state visible for ~5.4s)
+    100%    → returns to 1   (loops cleanly)
+  */
+  @keyframes hero-fade {
+    0%,  45% { opacity: 1; }
+    50%, 95% { opacity: 0; }
+    100%     { opacity: 1; }
+  }
+
+  /*
+    hero-fade-inverse: wedding text
+    Inverse timing keeps wedding text visible precisely when the
+    memorial layer is transparent (i.e. wedding bg is showing).
+  */
+  @keyframes hero-fade-inverse {
+    0%,  45% { opacity: 0; }
+    50%, 95% { opacity: 1; }
+    100%     { opacity: 0; }
+  }
+
+  .hero__layer--memorial {
+    animation: hero-fade 12s ease-in-out infinite;
+  }
+
+  .hero__text--memorial {
+    animation: hero-fade 12s ease-in-out infinite;
+  }
+
+  .hero__text--wedding {
+    animation: hero-fade-inverse 12s ease-in-out infinite;
+  }
+}
+
+/* ── .hero__content height anchor (needs a concrete height so  ──
+   absolutely-positioned .hero__text children have a reference) */
+.hero__content {
+  /* min-height matches hero so the stacked text divs have room */
+  min-height: 16rem;
+}
+
+/* Services */
+
+.services {
+  padding: 5rem 0;
+  background-color: var(--color-ivory);
+}
+
+.services h2 {
+  text-align: center;
+  margin-bottom: 3rem;
+  color: var(--color-charcoal);
+}
+
+.services__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .services__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.services__card {
+  background-color: #fff;
+  border-top: 4px solid;
+  padding: 0;
+  box-shadow: 0 2px 12px rgba(44, 43, 41, 0.07);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.services__card--weddings {
+  border-top-color: var(--color-gold);
+}
+
+.services__card--milestones {
+  border-top-color: var(--color-sage);
+}
+
+.services__card--memorials {
+  border-top-color: var(--color-charcoal);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .services__card:hover {
+    box-shadow: 0 4px 24px rgba(44, 43, 41, 0.13);
+    transform: translateY(-3px);
+  }
+}
+
+.services__card-body {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.services__card-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: var(--color-charcoal);
+}
+
+.services__card-desc {
+  font-size: 1rem;
+  color: #5a5855;
+  flex: 1;
+  margin-bottom: 1.5rem;
+}
+
+.services__link {
+  font-size: 0.875rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  text-decoration: none;
+  font-weight: 500;
+  align-self: flex-start;
+  transition: color 0.2s;
+}
+
+.services__link:hover {
+  text-decoration: underline;
+}
+
+/* Testimonials */
+
+.testimonials {
+  background: linear-gradient(rgba(138,158,133,0.05), rgba(138,158,133,0.05)), var(--color-ivory);
+  padding: 5rem 0;
+}
+
+.testimonials__heading {
+  text-align: center;
+  margin-bottom: 3rem;
+  color: var(--color-charcoal);
+}
+
+.testimonials__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .testimonials__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.testimonials__quote {
+  margin: 0;
+  padding: 2rem 2rem 2rem 3rem;
+  border-left: 3px solid var(--color-sage);
+  position: relative;
+  background-color: rgba(255,255,255,0.6);
+}
+
+.testimonials__quote::before {
+  content: '\201C';
+  position: absolute;
+  top: -0.25rem;
+  left: 0.75rem;
+  font-family: var(--font-heading);
+  font-size: 5rem;
+  line-height: 1;
+  color: var(--color-gold);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.testimonials__quote blockquote {
+  margin: 0 0 1rem 0;
+  padding: 0;
+}
+
+.testimonials__quote blockquote p {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--color-charcoal);
+  margin: 0;
+  line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+  .testimonials__quote blockquote p {
+    font-size: 1.4rem;
+  }
+}
+
+.testimonials__quote figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.testimonials__cite {
+  font-style: normal;
+  font-variant: small-caps;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  color: var(--color-charcoal);
+}
+
+.testimonials__context {
+  font-size: 0.8rem;
+  color: var(--color-dusty-rose);
+  letter-spacing: 0.04em;
+}
+
+/* Contact */
+
+.contact {
+  padding: 5rem 0;
+  background-color: var(--color-charcoal);
+}
+
+.contact__inner {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .contact__inner {
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    align-items: start;
+  }
+}
+
+.contact__intro h2 {
+  color: var(--color-ivory);
+  margin-top: 0;
+}
+
+.contact__intro p {
+  color: var(--color-dusty-rose);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form__label {
+  color: var(--color-ivory);
+  font-size: 0.875rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.form__optional {
+  font-weight: 300;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--color-dusty-rose);
+  font-size: 0.8rem;
+}
+
+.form__hint {
+  font-size: 0.8rem;
+  color: rgba(245, 240, 232, 0.55);
+  line-height: 1.4;
+}
+
+.form__input {
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(245, 240, 232, 0.25);
+  border-radius: 0;
+  color: var(--color-ivory);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form__input:focus {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.2);
+}
+
+.form__select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23F5F0E8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+  cursor: pointer;
+  color: var(--color-ivory);
+}
+
+.form__select option {
+  background-color: var(--color-charcoal);
+  color: var(--color-ivory);
+}
+
+.form__textarea {
+  resize: vertical;
+  min-height: 8rem;
+}
+
+/* Validation states */
+
+/* Show valid state only when field has been touched (not empty, not focused) */
+.form__input:not(:focus):not([type="date"]):valid {
+  border-color: var(--color-sage);
+}
+
+/* Invalid state — only when not empty and not focused (avoid penalising empty untouched fields) */
+.form__input:not(:focus):not(:placeholder-shown):invalid {
+  border-color: var(--color-dusty-rose);
+  box-shadow: 0 0 0 3px rgba(184, 164, 154, 0.15);
+}
+
+/* Select: :placeholder-shown doesn't apply, so check differently */
+.form__select:not(:focus):invalid {
+  border-color: var(--color-dusty-rose);
+}
+
+.form__select:not(:focus):valid {
+  border-color: var(--color-sage);
+}
+
+/* Textarea */
+.form__textarea:not(:focus):not(:placeholder-shown):invalid {
+  border-color: var(--color-dusty-rose);
+  box-shadow: 0 0 0 3px rgba(184, 164, 154, 0.15);
+}
+
+.form__textarea:not(:focus):valid {
+  border-color: var(--color-sage);
+}
+
+/* Submit row */
+
+.form__field--submit {
+  margin-top: 0.5rem;
+}
+
+/* JS-enhanced header */
+
+.site-header {
+  transition: padding 0.3s ease;
+}
+
+.site-header.scrolled {
+  padding: 0.4rem 0;
+}
+
+/* Mobile nav */
+
+.site-header__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Hamburger button — visible only on mobile */
+.nav-toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 1.5rem;
+  height: 1.125rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.nav-toggle__bar {
+  display: block;
+  width: 100%;
+  height: 1.5px;
+  background-color: var(--color-charcoal);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* Animate bars into an X when open */
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(1) {
+  transform: translateY(0.5rem) rotate(45deg);
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(2) {
+  opacity: 0;
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle__bar:nth-child(3) {
+  transform: translateY(-0.5rem) rotate(-45deg);
+}
+
+/* Mobile nav — hidden by default, shown when .is-open */
+.main-nav {
+  display: none;
+  width: 100%;
+  order: 3; /* below logo and button in flex row */
+}
+
+.main-nav.is-open {
+  display: block;
+}
+
+.main-nav ul {
+  flex-direction: column;
+  gap: 0;
+  padding: 1rem 0;
+}
+
+.main-nav ul li a {
+  display: block;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(44, 43, 41, 0.08);
+}
+
+/* Desktop — show nav, hide toggle */
+@media (min-width: 768px) {
+  .nav-toggle {
+    display: none;
+  }
+
+  .main-nav {
+    display: block;
+    width: auto;
+  }
+
+  .main-nav ul {
+    flex-direction: row;
+    gap: 1.5rem;
+    padding: 0;
+  }
+
+  .main-nav ul li a {
+    padding: 0;
+    border-bottom: none;
+  }
+}
+
+/* Reduced motion: disable bar animations */
+@media (prefers-reduced-motion: reduce) {
+  .nav-toggle__bar {
+    transition: none;
+  }
+}
+
+/* Scroll animations */
+
+/* Only apply the hidden/reveal styles when motion is acceptable */
+@media (prefers-reduced-motion: no-preference) {
+  .services,
+  .testimonials,
+  .contact,
+  .services__card,
+  .testimonials__quote {
+    opacity: 0;
+    transform: translateY(1.5rem);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .services.visible,
+  .testimonials.visible,
+  .contact.visible,
+  .services__card.visible,
+  .testimonials__quote.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Stagger cards and quotes when their siblings become visible */
+  .services__card:nth-child(2) { transition-delay: 0.1s; }
+  .services__card:nth-child(3) { transition-delay: 0.2s; }
+  .testimonials__quote:nth-child(2) { transition-delay: 0.1s; }
 }
